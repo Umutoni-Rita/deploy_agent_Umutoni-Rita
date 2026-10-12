@@ -1,0 +1,5 @@
+.vscode/
+attendance_tracker_*/
+*.zip
+__pycache__/
+*.pyc
