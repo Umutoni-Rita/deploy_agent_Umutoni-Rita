@@ -310,3 +310,39 @@ deploy() {
     trap - EXIT INT TSTP
     run_application
 }
+
+# Archiving the logs into separate folders
+archive_logs() {
+    if [[ ! -d "$project_dir" || -L "$project_dir" ]]; then
+        echo "Project not found. Deploy it first."
+        exit 1
+    fi
+
+    timestamp=$(date +%Y%m%d_%H%M%S)
+    for log in attendance absent; do
+        source_log="$project_dir/reports/$log.log"
+        archive_folder="$project_dir/archives/$log"
+
+        if [[ -f "$source_log" ]]; then
+            if ! mkdir -p -- "$archive_folder"; then
+                echo "Could not create $archive_folder."
+                exit 1
+            fi
+            archived_log="$archive_folder/${log}_${timestamp}.log"
+
+            number=1
+            while [[ -e "$archived_log" ]]; do
+                archived_log="$archive_folder/${log}_${timestamp}_${number}.log"
+                number=$((number + 1))
+            done
+
+            if ! cp -- "$source_log" "$archived_log"; then
+                echo "Could not archive $source_log."
+                exit 1
+            fi
+            echo "Archived: $archived_log"
+        else
+            echo "No $log.log found. Skipping it."
+        fi
+    done
+}
