@@ -314,7 +314,7 @@ deploy() {
 # Archiving the logs into separate folders
 archive_logs() {
     if [[ ! -d "$project_dir" || -L "$project_dir" ]]; then
-        echo "Project folder not found, or it is a symbolic link."
+        echo "Project not found. Deploy it first."
         exit 1
     fi
 
@@ -330,7 +330,6 @@ archive_logs() {
             fi
             archived_log="$archive_folder/${log}_${timestamp}.log"
 
-            # Avoiding overwriting if you archive twice within the same second.
             number=1
             while [[ -e "$archived_log" ]]; do
                 archived_log="$archive_folder/${log}_${timestamp}_${number}.log"
