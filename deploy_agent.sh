@@ -346,3 +346,25 @@ archive_logs() {
         fi
     done
 }
+
+# Main menu
+ echo "1. Deploy and verify the application"
+ echo "2. Run an existing project"
+ echo "3. Archive logs"
+ echo "4. Exit"
+read -r -p "Choose 1, 2, 3 or 4: " choice || exit 1
+
+if [[ "$choice" == "1" ]]; then
+    deploy
+elif [[ "$choice" == "2" ]]; then
+    name_the_project
+    run_application existing
+elif [[ "$choice" == "3" ]]; then
+    name_the_project
+    archive_logs
+elif [[ "$choice" == "4" ]]; then
+    echo "Goodbye."
+else
+    echo "Invalid choice. Run the script again."
+    exit 1
+fi
