@@ -6,6 +6,8 @@ The main script is `deploy_agent.sh`.
 
 The script handles environment preparation, which includes checking for Python 3 and ZIP dependencies, deploying a new application, running an already deployed application, and archiving attendance reports connected to a project.
 
+[![Watch the a live demo of the script running](https://youtube.com)](https://youtu.be/sTSsDs0Ilsw?si=BDPnvlxTFh9UpGdc)
+
 ## Requirements
 
 The following are needed before running the application:
